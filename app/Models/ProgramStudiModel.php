@@ -28,4 +28,14 @@ class ProgramStudiModel extends Model
     'singkatan' => 'required|alpha|is_unique[program_studi.singkatan]',
     'fakultas_id' => 'required|numeric'
   ];
+
+  public function withRelations($id = null)
+  {
+    $builder = $this->db->table($this->table);
+    $builder->select($this->table.'.*, fakultas.nama as fakultas_nama');
+    $builder->join('fakultas', $this->table.'.fakultas_id = fakultas.id');
+    if ($id)
+      $builder->where('id', $id);
+    return $builder->get();
+  }
 }
