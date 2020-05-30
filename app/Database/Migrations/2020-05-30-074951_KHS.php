@@ -24,22 +24,23 @@ class KHS extends Migration
 			],
 			'semester' => [
 				'type' => 'ENUM',
-				'constraint' => ['ganjil', 'genap']
+				'constraint' => ['ganjil', 'genap'],
+				'default' => 'ganjil',
 			],
 			'file_id' => [
 				'type' => 'INT',
 				'unsigned' => true
 			],
 			'created_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'updated_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'deleted_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			]
 		]);

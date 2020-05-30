@@ -24,21 +24,20 @@ class Fakultas extends Migration
 				'unique' => true
 			],
 			'created_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'updated_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'deleted_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			]
 		]);
 		
 		$this->forge->addKey('id', true, true);
-		$this->forge->addUniqueKey('singkatan');
 		$this->forge->createTable($this->tableName, true);
 	}
 

@@ -15,34 +15,37 @@ class File extends Migration
 				'auto_increment' => true
 			],
 			'name' => [
-				'type' => 'VARCHAR'
+				'type' => 'VARCHAR',
+				'constraint' => '255',
+				'unique' => true
 			],
 			'size' => [
 				'type' => 'VARCHAR',
+				'constraint' => '100'
 			],
 			'type' => [
 				'type' => 'VARCHAR',
+				'constraint' => '255'
 			],
 			'user_id' => [
 				'type' => 'INT',
 				'unsigned' => true
 			],
 			'created_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'updated_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'deleted_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			]
 		]);
 		
 		$this->forge->addKey('id', true, true);	
-		$this->forge->addUniqueKey('name');
 		$this->forge->addForeignKey('user_id', 'users', 'id');
 		$this->forge->createTable($this->tableName, true);
 	}

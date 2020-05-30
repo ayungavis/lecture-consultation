@@ -2,9 +2,9 @@
 
 use CodeIgniter\Database\Migration;
 
-class DetailKonsultasi extends Migration
+class Notifikasi extends Migration
 {
-	protected $tableName = 'detail_konsultasi';
+	protected $tableName = 'notifikasi';
 
 	public function up()
 	{
@@ -14,47 +14,44 @@ class DetailKonsultasi extends Migration
 				'unsigned' => true,
 				'auto_increment' => true
 			],
+			'from' => [
+				'type' => 'INT',
+				'unsigned' => true
+			],
+			'to' => [
+				'type' => 'INT',
+				'unsigned' => true
+			],
+			'pesan' => [
+				'type' => 'VARCHAR',
+				'constraint' => '255'
+			],
+			'sudah_dibaca' => [
+				'type' => 'BOOLEAN',
+				'default' => false
+			],
 			'konsultasi_id' => [
 				'type' => 'INT',
 				'unsigned' => true
 			],
-			'topik_id' => [
-				'type' => 'INT',
-				'unsigned' => true
-			],
-			'topik_bahasan' => [
-				'type' => 'TEXT',
-				'null' => true
-			],
-			'rencana_tindak_lanjut' => [
-				'type' => 'TEXT',
-				'null' => true
-			],
-			'tanggal_dibuat' => [
-				'type' => 'DATETIME',
-				'null' => true
-			],
-			'tanggal_dibalas' => [
-				'type' => 'DATETIME',
-				'null' => true
-			],
 			'created_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'updated_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'deleted_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			]
 		]);
-
+		
 		$this->forge->addKey('id', true, true);	
+		$this->forge->addForeignKey('from', 'users', 'id');
+		$this->forge->addForeignKey('to', 'users', 'id');
 		$this->forge->addForeignKey('konsultasi_id', 'konsultasi', 'id');
-		$this->forge->addForeignKey('topik_id', 'topik_konsultasi', 'id');
 		$this->forge->createTable($this->tableName, true);
 	}
 

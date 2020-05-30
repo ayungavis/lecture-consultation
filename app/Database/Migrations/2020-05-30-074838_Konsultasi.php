@@ -32,21 +32,20 @@ class Konsultasi extends Migration
 				'unique' => true
 			],
 			'created_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'updated_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			],
 			'deleted_at' => [
-				'type' => 'TIMESTAMP',
+				'type' => 'DATETIME',
 				'null' => true
 			]
 		]);
 		
 		$this->forge->addKey('id', true, true);	
-		$this->forge->addUniqueKey('qr_code');
 		$this->forge->addForeignKey('periode_id', 'periode', 'id');
 		$this->forge->addForeignKey('user_id', 'users', 'id');
 		$this->forge->addForeignKey('dosen_id', 'users', 'id');
