@@ -8,7 +8,7 @@ class KonsultasiModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';
@@ -21,25 +21,36 @@ class KonsultasiModel extends Model
     'periode_id',
     'user_id',
     'dosen_id',
-    'qr_code'
+    'qr_code',
+    'file_id'
   ];
 
   protected $validationRules = [
     'periode_id' => 'required|numeric',
     'user_id' => 'required|numeric',
     'dosen_id' => 'required|numeric',
-    'qr_code' => 'required|is_unique[konsultasi.qr_code]'
+    'qr_code' => 'is_unique[konsultasi.qr_code]',
+    'file_id' => 'required|numeric'
   ];
 
   public function withRelations($id = null)
   {
     $builder = $this->db->table($this->table);
-    $builder->select($this->table.'.*, mahasiswa.nama as mahasiswa, dosen.nama as dosen, periode.tahun_awal as tahun_awal, periode.tahun_akhir as tahun_akhir');
-    $builder->join('users as mahasiswa', $this->table.'.user_id = users.id');
-    $builder->join('users as dosen', $this->table.'.dosen_id = users.id');
+    $builder->select($this->table.'.*, mahasiswa.nim as nim_mahasiswa, mahasiswa.nama as mahasiswa, mahasiswa.prodi_id as prodi_mahasiswa, mahasiswa.tahun_masuk as tahun_masuk, mahasiswa.nomor_telepon as nomor_mahasiswa, mahasiswa.alamat as alamat_mahasiswa, dosen.nama as dosen, periode.tahun_awal as tahun_awal, periode.tahun_akhir as tahun_akhir, file.name as file_name');
+    $builder->join('users as mahasiswa', $this->table.'.user_id = mahasiswa.id');
+    $builder->join('users as dosen', $this->table.'.dosen_id = dosen.id');
     $builder->join('periode', $this->table.'.periode_id = periode.id');
+    $builder->join('file', $this->table.'.file_id = file.id');
     if ($id)
-      $builder->where('id', $id);
+      $builder->where($this->table .'.id', $id);
     return $builder->get();
+  }
+
+  public function store($data)
+  {
+    $db = db_connect('default');
+    $builder = $db->table($this->table);
+    $builder->insert($data);
+    return $db->insertID();
   }
 }

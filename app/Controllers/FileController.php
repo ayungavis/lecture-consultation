@@ -1,7 +1,17 @@
 <?php namespace App\Controllers;
 
+use App\Models\FileModel;
+
 class FileController extends BaseController
 {
+  public function __construct()
+  {
+    helper('text');
+
+    $this->file = new FileModel();
+    $this->session = session();
+  }
+
 	public function index()
 	{
 		$data['title'] = 'Pengguna';
@@ -13,9 +23,15 @@ class FileController extends BaseController
 
   }
 
-  public function store()
+  public function store($file)
   {
+    $attributes['name'] = random_string('alnum', 16) . '.' . $file->getClientExtension();
+    $attributes['size'] = $file->getSize();
+    $attributes['type'] = $file->getClientMimeType();
+    $attributes['user_id'] = $this->session->get('id');
+    $file->move(WRITEPATH . 'uploads', $attributes['name']);
 
+    return $this->file->store($attributes);
   }
 
   public function show($id)

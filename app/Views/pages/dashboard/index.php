@@ -1,10 +1,9 @@
 <?= $this->extend('layouts/app') ?>
 
 <?= $this->section('content') ?>
-<div class="alert alert-soft-warning d-flex align-items-center card-margin" role="alert">
+<div class="alert alert-soft-info d-flex align-items-center card-margin" role="alert">
   <i class="material-icons mr-3">error_outline</i>
-  <div class="text-body">You have <strong>5 days left</strong> on your subscription</div>
-  <a href="" class="btn btn-warning ml-auto">Upgrade</a>
+  <div class="text-body">Selamat datang, <strong><?= session()->get('nama'); ?>!</strong></div>
 </div>
 
 <div class="row">

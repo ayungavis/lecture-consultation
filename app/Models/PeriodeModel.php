@@ -8,7 +8,7 @@ class PeriodeModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';

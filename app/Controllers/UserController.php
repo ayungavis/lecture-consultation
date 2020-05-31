@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use App\Models\ProgramStudiModel;
+use App\Models\RoleModel;
 use App\Models\UserModel;
 
 class UserController extends BaseController
@@ -7,6 +9,8 @@ class UserController extends BaseController
   public function __construct()
   {
     $this->user = new UserModel();
+    $this->role = new RoleModel();
+    $this->prodi = new ProgramStudiModel();
     $this->session = session();
   }
 
@@ -14,6 +18,8 @@ class UserController extends BaseController
 	{
     $data['title'] = 'Daftar Pengguna';
     $data['user'] = $this->user->withRelations()->getResult();
+    $data['role'] = $this->role->asObject()->findAll();
+    $data['prodi'] = $this->prodi->asObject()->findAll();
 		return view('pages/users/index', $data);
   }
   
@@ -25,12 +31,19 @@ class UserController extends BaseController
 
   public function store()
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('users/create'));
+    $data['title'] = 'Daftar Pengguna';
+    $data['user'] = $this->user->withRelations()->getResult();
+    $data['role'] = $this->role->asObject()->findAll();
+    $data['prodi'] = $this->prodi->asObject()->findAll();
+    if (!$this->validate($this->user->getValidationRules())) {
+      $data['errors'] = $this->validator->getErrors();
+      view('pages/users/index', $data);
     } else {
-      $this->user->insert($this->request->getPost());
+      $attributes = $this->request->getPost();
+      $attributes['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+      $this->user->insert($attributes);
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('users/create'));
+      return redirect()->to(base_url('users'));
     }
   }
 
@@ -50,12 +63,22 @@ class UserController extends BaseController
 
   public function update($id)
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('users/'. $id .'/edit'));
+    $data['title'] = 'Daftar Pengguna';
+    $data['user'] = $this->user->withRelations()->getResult();
+    $data['role'] = $this->role->asObject()->findAll();
+    $data['prodi'] = $this->prodi->asObject()->findAll();
+    if (!$this->validate($this->user->getValidationRules())) {
+      $data['errors'] = $this->validator->getErrors();
+      view('pages/users/index', $data);
     } else {
-      $this->user->update($id, $this->request->getPost());
+      $attributes = $this->request->getPost();
+      
+      if ($this->request->getPost('password')) 
+        $attributes['password'] = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
+        
+      $this->user->update($id, $attributes);
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('users/'. $id .'/edit'));
+      return redirect()->to(base_url('users'));
     }
   }
 

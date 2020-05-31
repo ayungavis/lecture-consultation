@@ -1,5 +1,6 @@
 <?php namespace App\Controllers;
 
+use App\Models\FakultasModel;
 use App\Models\ProgramStudiModel;
 
 class ProgramStudiController extends BaseController
@@ -7,6 +8,7 @@ class ProgramStudiController extends BaseController
 	public function __construct()
   {
     $this->prodi = new ProgramStudiModel();
+    $this->fakultas = new FakultasModel();
     $this->session = session();
   }
 
@@ -14,6 +16,7 @@ class ProgramStudiController extends BaseController
 	{
     $data['title'] = 'Daftar Program Studi';
     $data['prodi'] = $this->prodi->withRelations()->getResult();
+    $data['fakultas'] = $this->fakultas->asObject()->findAll();
 		return view('pages/program-studi/index', $data);
   }
   
@@ -25,12 +28,16 @@ class ProgramStudiController extends BaseController
 
   public function store()
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('program-studi/create'));
+    $data['title'] = 'Daftar Program Studi';
+    $data['prodi'] = $this->prodi->withRelations()->getResult();
+    $data['fakultas'] = $this->fakultas->asObject()->findAll();
+    if (!$this->validate($this->prodi->getValidationRules())) {
+      $data['errors'] = $this->validator->getErrors();
+      return view('pages/program-studi/index', $data);
     } else {
       $this->prodi->insert($this->request->getPost());
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('program-studi/create'));
+      return redirect()->to(base_url('program-studi'));
     }
   }
 
@@ -50,12 +57,16 @@ class ProgramStudiController extends BaseController
 
   public function update($id)
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('program-studi/'. $id .'/edit'));
+    $data['title'] = 'Daftar Program Studi';
+    $data['prodi'] = $this->prodi->withRelations()->getResult();
+    $data['fakultas'] = $this->fakultas->asObject()->findAll();
+    if (!$this->validate($this->prodi->getValidationRules())) {
+      $data['errors'] = $this->validator->getErrors();
+      return view('pages/program-studi/index', $data);
     } else {
       $this->prodi->update($id, $this->request->getPost());
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('program-studi/'. $id .'/edit'));
+      return redirect()->to(base_url('program-studi'));
     }
   }
 

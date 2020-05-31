@@ -14,42 +14,33 @@
 
         <div class="navbar-collapse collapse" id="navbarsExample03">
           <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <a href="<?= base_url('/') ?>" class="nav-link">Beranda</a>
+            </li>
             <li class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">UI Components</a>
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Konsultasi</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="ui-buttons.html">Buttons</a>
-                <a class="dropdown-item" href="ui-alerts.html">Alerts</a>
-                <a class="dropdown-item" href="ui-avatars.html">Avatars</a>
-                <a class="dropdown-item" href="ui-modals.html">Modals</a>
-                <a class="dropdown-item" href="ui-icons.html">Icons</a>
-                <a class="dropdown-item" href="ui-range-sliders.html">Range Sliders</a>
-                <a class="dropdown-item" href="ui-datetime.html">Time &amp; Date</a>
-                <a class="dropdown-item" href="ui-tables.html">Tables</a>
-                <a class="dropdown-item" href="ui-loaders.html">Loaders</a>
-                <a class="dropdown-item" href="ui-drag.html">Drag &amp; Drop</a>
-                <a class="dropdown-item" href="ui-pagination.html">Pagination</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="ui-forms.html">Forms</a>
-                <a class="dropdown-item" href="ui-charts.html">Charts</a>
-                <div class="dropdown-divider"></div>
-                <div class="dropdown-header">Extras</div>
-                <a class="dropdown-item" href="fullcalendar.html">Calendar</a>
-                <a class="dropdown-item" href="ui-vector-maps.html">Vector Maps</a>
-
+                <a class="dropdown-item" href="<?= base_url('konsultasi/create') ?>">Ajukan Konsultasi</a>
+                <a class="dropdown-item" href="<?= base_url('konsultasi') ?>">Lihat Konsultasi</a>
+                <?php if (session()->get('role_level') >= 10): ?>
+                <a class="dropdown-item" href="<?= base_url('topik-konsultasi') ?>">Topik Konsultasi</a>
+                <?php endif ?>
               </div>
             </li>
-
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Layouts</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item active" href="student-dashboard.html">Default</a>
-                <!-- <a class="dropdown-item" href="fluid-student-dashboard.html">Full Width Navs</a> -->
-                <a class="dropdown-item" href="fixed-student-dashboard.html">Fixed Navs</a>
-                <a class="dropdown-item" href="mini-student-dashboard.html">Mini Sidebar + Navs</a>
-              </div>
+            <?php if (session()->get('role_level') >= 10): ?>
+            <li class="nav-item">
+              <a href="<?= base_url('users') ?>" class="nav-link">Pengguna</a>
             </li>
-            <li>
-
+            <li class="nav-item">
+              <a href="<?= base_url('periode') ?>" class="nav-link">Periode</a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('fakultas') ?>" class="nav-link">Fakultas</a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('program-studi') ?>" class="nav-link">Program Studi</a>
+            </li>
+            <?php endif ?>
           </ul>
         </div>
 
@@ -214,19 +205,17 @@
                 <img src="assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
               </span>
               <span class="flex d-flex flex-column">
-                <strong class="h5 m-0">Adrian D.</strong>
-                <small class="text-muted text-uppercase">STUDENT</small>
+                <strong class="h5 m-0"><?= session()->get('nama') ?></strong>
+                <small class="text-muted text-uppercase"><?= session()->get('role_nama') ?></small>
               </span>
 
             </div>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item d-flex align-items-center py-2" href="edit-account.html">
+            <a class="dropdown-item d-flex align-items-center py-2"
+              href="<?= base_url('profil/'. session()->get('id')) ?>">
               <span class="material-icons mr-2">account_circle</span> Edit Account
             </a>
-            <a class="dropdown-item d-flex align-items-center py-2" href="#">
-              <span class="material-icons mr-2">settings</span> Settings
-            </a>
-            <a class="dropdown-item d-flex align-items-center py-2" href="login.html">
+            <a class="dropdown-item d-flex align-items-center py-2" href="<?= base_url('auth/logout') ?>">
               <span class="material-icons mr-2">exit_to_app</span> Logout
             </a>
           </div>

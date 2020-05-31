@@ -1,7 +1,7 @@
 <?php namespace Config;
 
 // Create a new instance of our RouteCollection class.
-$routes = Services::routes();
+$routes = Services::routes(true);
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
@@ -16,11 +16,11 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('HomeController');
-$routes->setDefaultMethod('index');
-$routes->setTranslateURIDashes(false);
+$routes->setDefaultController('AuthController');
+$routes->setDefaultMethod('login');
+$routes->setTranslateURIDashes(true);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 
 /**
  * --------------------------------------------------------------------
@@ -32,6 +32,61 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'HomeController::index');
 $routes->add('auth/login', 'AuthController::login');
+$routes->add('auth/logout', 'AuthController::logout');
+
+// User
+$routes->add('users', 'UserController::index');
+$routes->add('users/store', 'UserController::store');
+$routes->add('users/create', 'UserController::create');
+$routes->add('users/(:segment)', 'UserController::show/$1');
+$routes->add('users/(:segment)/edit', 'UserController::edit/$1');
+$routes->add('users/(:segment)/update', 'UserController::update/$1');
+$routes->add('users/(:segment)/delete', 'UserController::destroy/$1');
+
+// Program studi
+$routes->add('program-studi', 'ProgramStudiController::index');
+$routes->add('program-studi/store', 'ProgramStudiController::store');
+$routes->add('program-studi/create', 'ProgramStudiController::create');
+$routes->add('program-studi/(:segment)', 'ProgramStudiController::show/$1');
+$routes->add('program-studi/(:segment)/edit', 'ProgramStudiController::edit/$1');
+$routes->add('program-studi/(:segment)/update', 'ProgramStudiController::update/$1');
+$routes->add('program-studi/(:segment)/delete', 'ProgramStudiController::destroy/$1');
+
+// Fakultas
+$routes->add('fakultas', 'FakultasController::index');
+$routes->add('fakultas/store', 'FakultasController::store');
+$routes->add('fakultas/create', 'FakultasController::create');
+$routes->add('fakultas/(:segment)', 'FakultasController::show/$1');
+$routes->add('fakultas/(:segment)/edit', 'FakultasController::edit/$1');
+$routes->add('fakultas/(:segment)/update', 'FakultasController::update/$1');
+$routes->add('fakultas/(:segment)/delete', 'FakultasController::destroy/$1');
+
+// Topik konsultasi
+$routes->add('topik-konsultasi', 'TopikKonsultasiController::index');
+$routes->add('topik-konsultasi/store', 'TopikKonsultasiController::store');
+$routes->add('topik-konsultasi/create', 'TopikKonsultasiController::create');
+$routes->add('topik-konsultasi/(:segment)', 'TopikKonsultasiController::show/$1');
+$routes->add('topik-konsultasi/(:segment)/edit', 'TopikKonsultasiController::edit/$1');
+$routes->add('topik-konsultasi/(:segment)/update', 'TopikKonsultasiController::update/$1');
+$routes->add('topik-konsultasi/(:segment)/delete', 'TopikKonsultasiController::destroy/$1');
+
+// Konsultasi
+$routes->add('konsultasi', 'KonsultasiController::index');
+$routes->add('konsultasi/store', 'KonsultasiController::store');
+$routes->add('konsultasi/create', 'KonsultasiController::create');
+$routes->add('konsultasi/(:segment)', 'KonsultasiController::show/$1');
+$routes->add('konsultasi/(:segment)/edit', 'KonsultasiController::edit/$1');
+$routes->add('konsultasi/(:segment)/update', 'KonsultasiController::update/$1');
+$routes->add('konsultasi/(:segment)/delete', 'KonsultasiController::destroy/$1');
+
+// Periode
+$routes->add('periode', 'PeriodeController::index');
+$routes->add('periode/store', 'PeriodeController::store');
+$routes->add('periode/create', 'PeriodeController::create');
+$routes->add('periode/(:segment)', 'PeriodeController::show/$1');
+$routes->add('periode/(:segment)/edit', 'PeriodeController::edit/$1');
+$routes->add('periode/(:segment)/update', 'PeriodeController::update/$1');
+$routes->add('periode/(:segment)/delete', 'PeriodeController::destroy/$1');
 
 /**
  * --------------------------------------------------------------------

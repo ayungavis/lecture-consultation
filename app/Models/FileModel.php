@@ -8,7 +8,7 @@ class FileModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';
@@ -30,4 +30,12 @@ class FileModel extends Model
     'type' => 'reqired|string',
     'user_id' => 'required|numeric',
   ];
+
+  public function store($data)
+  {
+    $db = db_connect('default');
+    $builder = $db->table($this->table);
+    $builder->insert($data);
+    return $db->insertID();
+  }
 }

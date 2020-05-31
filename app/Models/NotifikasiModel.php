@@ -8,7 +8,7 @@ class NotifikasiModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';
@@ -42,5 +42,13 @@ class NotifikasiModel extends Model
     if ($id)
       $builder->where('id', $id);
     return $builder->get();
+  }
+
+  public function store($data)
+  {
+    $db = db_connect('default');
+    $builder = $db->table($this->table);
+    $builder->insert($data);
+    return $db->insertID();
   }
 }

@@ -29,7 +29,12 @@ class Konsultasi extends Migration
 			],
 			'qr_code' => [
 				'type' => 'TEXT',
-				'unique' => true
+				'unique' => true,
+				'null' => true
+			],
+			'file_id' => [
+				'type' => 'INT',
+				'unsigned' => true
 			],
 			'created_at' => [
 				'type' => 'DATETIME',
@@ -49,6 +54,7 @@ class Konsultasi extends Migration
 		$this->forge->addForeignKey('periode_id', 'periode', 'id');
 		$this->forge->addForeignKey('user_id', 'users', 'id');
 		$this->forge->addForeignKey('dosen_id', 'users', 'id');
+		$this->forge->addForeignKey('file_id', 'file', 'id');
 		$this->forge->createTable($this->tableName, true);
 	}
 

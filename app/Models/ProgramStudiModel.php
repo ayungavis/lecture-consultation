@@ -8,7 +8,7 @@ class ProgramStudiModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';
@@ -25,7 +25,7 @@ class ProgramStudiModel extends Model
 
   protected $validationRules = [
     'nama' => 'required|alpha_numeric_space',
-    'singkatan' => 'required|alpha|is_unique[program_studi.singkatan]',
+    'singkatan' => 'required|alpha',
     'fakultas_id' => 'required|numeric'
   ];
 

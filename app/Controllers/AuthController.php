@@ -51,5 +51,37 @@ class AuthController extends BaseController
         }
       }
     }
-	}
+  }
+
+  public function logout()
+  {
+    $this->session->remove([
+      'id',
+      'nim', 
+      'nama',
+      'email',
+      'password',
+      'alamat',
+      'nomor_telepon',
+      'tahun_masuk',
+      'role_id',
+      'prodi_id',
+      'created_at',
+      'updated_at',
+      'deleted_at',
+      'role_nama',
+      'role_code',
+      'role_level'
+    ]);
+    $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Anda berhasil logout!</div></div>');
+    return redirect()->to(base_url('auth/login'));
+  }
+  
+  public function check()
+  {
+    if ($this->session->get('id'))
+      return true;
+    else
+      return false;
+  }
 }

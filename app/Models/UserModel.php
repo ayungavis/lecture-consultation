@@ -8,7 +8,7 @@ class UserModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';
@@ -30,7 +30,7 @@ class UserModel extends Model
   ];
 
   protected $validationRules = [
-    'nim' => 'unique|numeric', 
+    'nim' => 'permit_empty|numeric', 
     'nama' => 'required|alpha_numeric_space',
     'email' => 'required|valid_email|is_unique[users.email]',
     'password' => 'required|min_length[3]',
@@ -44,10 +44,8 @@ class UserModel extends Model
   public function withRelations($id = null)
   {
     $builder = $this->db->table($this->table);
-    $builder->select($this->table.'*, roles.nama as role_nama, program_studi.nama as prodi_nama, fakultas.nama as fakultas_nama');
+    $builder->select($this->table.'.*, roles.nama as role_nama, roles.code as role_code');
     $builder->join('roles', $this->table.'.role_id = roles.id');
-    $builder->join('program_studi', $this->table.'.prodi_id = program_studi.id');
-    $builder->join('fakultas', 'program_studi.fakultas_id = fakultas.id');
     if ($id)
       $builder->where('id', $id);
     return $builder->get();

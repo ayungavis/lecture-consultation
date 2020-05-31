@@ -2,7 +2,7 @@
 
 use App\Models\TopikKonsultasiModel;
 
-class TopikKonsultasiKontroller extends BaseController
+class TopikKonsultasiController extends BaseController
 {
 	public function __construct()
   {
@@ -13,7 +13,7 @@ class TopikKonsultasiKontroller extends BaseController
 	public function index()
 	{
     $data['title'] = 'Daftar Topik Konsultasi';
-    $data['topik'] = $this->topik->findAll();
+    $data['topik'] = $this->topik->asObject()->findAll();
 		return view('pages/topik-konsultasi/index', $data);
   }
   
@@ -25,37 +25,43 @@ class TopikKonsultasiKontroller extends BaseController
 
   public function store()
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('topik-konsultasi/create'));
+    $data['title'] = 'Daftar Topik Konsultasi';
+    $data['topik'] = $this->topik->asObject()->findAll();
+    if (!$this->validate($this->topik->getValidationRules())) {
+      $data['errors'] = $this->validator->getErrors();
+      return view('pages/topik-konsultasi/index', $data);
     } else {
       $this->topik->insert($this->request->getPost());
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" topik="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('topik-konsultasi/create'));
+      return redirect()->to(base_url('topik-konsultasi'));
     }
   }
 
   public function show($id)
   {
     $data['title'] = 'Detail Topik Konsultasi';
-    $data['topik'] = $this->topik->find($id);
+    $data['topik'] = $this->topik->asObject()->find($id);
     return view('pages/topik-konsultasi/detail', $data);
   }
 
   public function edit($id)
   {
     $data['title'] = 'Edit Topik Konsultasi';
-    $data['topik'] = $this->topik->find($id);
+    $data['topik'] = $this->topik->asObject()->find($id);
     return view('pages/topik-konsultasi/edit', $data);
   }
 
   public function update($id)
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('topik-konsultasi/'. $id .'/edit'));
+    $data['title'] = 'Daftar Topik Konsultasi';
+    $data['topik'] = $this->topik->asObject()->findAll();
+    if (!$this->validate($this->topik->getValidationRules())) {
+      $data['errors'] = $this->validator->getErrors();
+      return view('pages/topik-konsultasi/index', $data);
     } else {
       $this->topik->update($id, $this->request->getPost());
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" topik="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('topik-konsultasi/'. $id .'/edit'));
+      return redirect()->to(base_url('topik-konsultasi'));
     }
   }
 

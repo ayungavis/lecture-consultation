@@ -8,7 +8,7 @@ class DetailKonsultasiModel extends Model
   protected $primaryKey = 'id';
 
   protected $returnType     = 'array';
-  protected $useSoftDeletes = true;
+  protected $useSoftDeletes = false;
 
   protected $useTimestamps = true;
   protected $createdField  = 'created_at';
@@ -34,4 +34,22 @@ class DetailKonsultasiModel extends Model
     'tanggal_dibuat' => 'required',
     'tanggal_dibalas' => 'permit_empty'
   ];
+
+  public function store($data)
+  {
+    $db = db_connect('default');
+    $builder = $db->table($this->table);
+    $builder->insert($data);
+    return $db->insertID();
+  }
+
+  public function getByKonsultasiID($konsultasi_id)
+  {
+    $builder = $this->db->table($this->table);
+    $builder->select($this->table.'.*, topik_konsultasi.nama as nama_topik');
+    $builder->join('topik_konsultasi', $this->table.'.topik_id = topik_konsultasi.id');
+    $builder->where('konsultasi_id', $konsultasi_id);
+    $builder->orderBy('tanggal_dibuat', 'desc');
+    return $builder->get();
+  }
 }

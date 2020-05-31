@@ -18,6 +18,7 @@ class AuthModel extends Model
     $builder->select($this->table.'.*, roles.nama as role_nama, roles.code as role_code, roles.level as role_level');
     $builder->join('roles', $this->table.'.role_id = roles.id');
     $builder->where('email', $email);
+    $builder->where('deleted_at is nulll');
     return $builder->get();
   }
 }
