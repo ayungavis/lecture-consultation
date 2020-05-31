@@ -37,10 +37,12 @@ class NotifikasiModel extends Model
   {
     $builder = $this->db->table($this->table);
     $builder->select($this->table.'.*, from.nama as from, to.nama as to');
-    $builder->join('users as from', $this->table.'.from = users.id');
-    $builder->join('users as to', $this->table.'.to = users.id');
+    $builder->join('users as from', $this->table.'.from = from.id');
+    $builder->join('users as to', $this->table.'.to = to.id');
+    $builder->where('sudah_dibaca', false);
     if ($id)
-      $builder->where('id', $id);
+      $builder->where($this->table .'.to', $id);
+    $builder->orderBy('created_at', 'desc');
     return $builder->get();
   }
 
@@ -50,5 +52,13 @@ class NotifikasiModel extends Model
     $builder = $db->table($this->table);
     $builder->insert($data);
     return $db->insertID();
+  }
+
+  public function readAll()
+  {
+    $builder = $this->db->table($this->table);
+    $builder->set('sudah_dibaca', true);
+    $builder->where('to', session()->get('id'));
+    $builder->update();
   }
 }

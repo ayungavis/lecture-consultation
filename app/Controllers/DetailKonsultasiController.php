@@ -1,7 +1,9 @@
 <?php namespace App\Controllers;
 
+use App\Libraries\Utils;
 use App\Models\DetailKonsultasiModel;
 use App\Models\KonsultasiModel;
+use App\Models\NotifikasiModel;
 
 class DetailKonsultasiController extends BaseController
 {
@@ -9,6 +11,7 @@ class DetailKonsultasiController extends BaseController
   {
     $this->konsultasi = new KonsultasiModel();
     $this->detailKonsultasi = new DetailKonsultasiModel();
+    $this->notifikasi = new NotifikasiModel();
     $this->session = session();
   }
 
@@ -27,12 +30,22 @@ class DetailKonsultasiController extends BaseController
 
   public function store()
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('detail-konsultasi/create'));
+    if (!$this->validate($this->detailKonsultasi->getValidationRules())) {
+      return redirect()->to(base_url('konsultasi/'. $this->request->getPost('konsultasi_id')));
     } else {
-      $this->detailKonsultasi->insert($this->request->getPost());
+      $attributes = $this->request->getPost();
+      unset($attributes['user_id']);
+      $this->detailKonsultasi->insert($attributes);
+
+      $notifikasi['from'] = session()->get('id');
+      $notifikasi['to'] = $this->request->getPost('user_id');
+      $notifikasi['pesan'] = session()->get('nama') . " telah mengajukan topik bahasan baru kepada Anda.";
+      $notifikasi['sudah_dibaca'] = false;
+      $notifikasi['konsultasi_id'] = $this->request->getPost('konsultasi_id');
+      $this->notifikasi->store($notifikasi);
+
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('detail-konsultasi/create'));
+      return redirect()->to(base_url('konsultasi/'. $this->request->getPost('konsultasi_id')));
     }
   }
 
@@ -52,12 +65,23 @@ class DetailKonsultasiController extends BaseController
 
   public function update($id)
   {
-    if (!$this->validate($this->auth->getValidationRules())) {
-      return redirect()->to(base_url('detail-konsultasi/'. $id .'/edit'));
+    if (!$this->validate($this->detailKonsultasi->getValidationRules())) {
+      return redirect()->to(base_url('konsultasi/'. $this->request->getPost('konsultasi_id')));
     } else {
-      $this->detailKonsultasi->update($id, $this->request->getPost());
+      $attributes = $this->request->getPost();
+      $attributes['tanggal_dibalas'] = Utils::now();
+      unset($attributes['user_id']);
+      $this->detailKonsultasi->update($id, $attributes);
+
+      $notifikasi['from'] = session()->get('id');
+      $notifikasi['to'] = $this->request->getPost('user_id');
+      $notifikasi['pesan'] = session()->get('nama') . " telah membalas topik bahasan Anda.";
+      $notifikasi['sudah_dibaca'] = false;
+      $notifikasi['konsultasi_id'] = $this->request->getPost('konsultasi_id');
+      $this->notifikasi->store($notifikasi);
+
       $this->session->setFlashdata('message', '<div class="alert alert-soft-success d-flex" role="alert"><i class="material-icons mr-3">check_circle</i><div class="text-body">Data berhasil disimpan!</div></div>');
-      return redirect()->to(base_url('detail-konsultasi/'. $id .'/edit'));
+      return redirect()->to(base_url('konsultasi/'. $this->request->getPost('konsultasi_id')));
     }
   }
 

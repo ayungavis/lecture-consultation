@@ -1,3 +1,9 @@
+<?php
+use App\Models\NotifikasiModel;
+
+$notifikasiModel = new NotifikasiModel();
+$notifikasi = $notifikasiModel->withRelations(session()->get('id'))->getResult();
+?>
 <!-- Header -->
 <div id="header" class="mdk-header js-mdk-header m-0" data-fixed data-effects="waterfall"
   data-retarget-mouse-scroll="false">
@@ -52,143 +58,44 @@
         <ul class="nav navbar-nav d-none d-md-flex">
           <li class="nav-item dropdown">
             <a href="#notifications_menu" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
-              <i class="material-icons nav-icon navbar-notifications-indicator">notifications</i>
+
+              <i
+                class="material-icons nav-icon <?php if (!empty($notifikasi)): ?>navbar-notifications-indicator<?php endif ?>">notifications</i>
             </a>
             <div id="notifications_menu" class="dropdown-menu dropdown-menu-right navbar-notifications-menu">
               <div class="dropdown-item d-flex align-items-center py-2">
                 <span class="flex navbar-notifications-menu__title m-0">Notifications</span>
-                <a href="javascript:void(0)" class="text-muted"><small>Clear all</small></a>
+                <a href="<?= base_url('notifikasi/read/all') ?>" class="text-muted"><small>Clear all</small></a>
               </div>
               <div class="navbar-notifications-menu__content" data-perfect-scrollbar>
                 <div class="py-2">
-
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <div class="avatar avatar-xs">
-                        <!-- <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
-                          class="avatar-img rounded-circle"> -->
-                      </div>
-                    </div>
-                    <div class="flex">
-                      <a href="">A.Demian</a> left a comment on <a href="">Stack</a><br>
-                      <small class="text-muted">1 minute ago</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <a href="#">
+                  <?php if (!empty($notifikasi)): ?>
+                  <?php foreach ($notifikasi as $row): ?>
+                  <a href="<?= base_url('notifikasi/'. $row->id .'/read?konsultasi_id='. $row->konsultasi_id) ?>"
+                    class="btn-read" data-id="<?= $row->id ?>">
+                    <div class="dropdown-item d-flex">
+                      <div class="mr-3">
                         <div class="avatar avatar-xs">
                           <span class="avatar-title bg-primary rounded-circle"><i
-                              class="material-icons icon-16pt">person_add</i></span>
+                              class="material-icons icon-16pt">info</i></span>
                         </div>
-                      </a>
-                    </div>
-                    <div class="flex">
-                      New user <a href="#">Peter Parker</a> signed up.<br>
-                      <small class="text-muted">1 hour ago</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <a href="#">
-                        <div class="avatar avatar-xs">
-                          <span class="avatar-title rounded-circle">JD</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="flex">
-                      <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br>
-                      <div>Hey, how are you? What about our next meeting</div>
-                      <small class="text-muted">2 minutes ago</small>
-                    </div>
-                  </div>
-
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <div class="avatar avatar-xs">
-                        <!-- <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
-                          class="avatar-img rounded-circle"> -->
+                      </div>
+                      <div class="flex">
+                        <?= $row->pesan ?><br>
+                        <small class="text-muted"><?= date("d F Y", strtotime($row->created_at)) ?></small>
                       </div>
                     </div>
-                    <div class="flex">
-                      <a href="">A.Demian</a> left a comment on <a href="">Stack</a><br>
-                      <small class="text-muted">1 minute ago</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <a href="#">
-                        <div class="avatar avatar-xs">
-                          <span class="avatar-title bg-primary rounded-circle"><i
-                              class="material-icons icon-16pt">person_add</i></span>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="flex">
-                      New user <a href="#">Peter Parker</a> signed up.<br>
-                      <small class="text-muted">1 hour ago</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <a href="#">
-                        <div class="avatar avatar-xs">
-                          <span class="avatar-title rounded-circle">JD</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="flex">
-                      <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br>
-                      <div>Hey, how are you? What about our next meeting</div>
-                      <small class="text-muted">2 minutes ago</small>
-                    </div>
-                  </div>
-
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <div class="avatar avatar-xs">
-                        <!-- <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
-                          class="avatar-img rounded-circle"> -->
-                      </div>
-                    </div>
-                    <div class="flex">
-                      <a href="">A.Demian</a> left a comment on <a href="">Stack</a><br>
-                      <small class="text-muted">1 minute ago</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <a href="#">
-                        <div class="avatar avatar-xs">
-                          <span class="avatar-title bg-primary rounded-circle"><i
-                              class="material-icons icon-16pt">person_add</i></span>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="flex">
-                      New user <a href="#">Peter Parker</a> signed up.<br>
-                      <small class="text-muted">1 hour ago</small>
-                    </div>
-                  </div>
-                  <div class="dropdown-item d-flex">
-                    <div class="mr-3">
-                      <a href="#">
-                        <div class="avatar avatar-xs">
-                          <span class="avatar-title rounded-circle">JD</span>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="flex">
-                      <a href="#">Big Joe</a> <small class="text-muted">wrote:</small><br>
-                      <div>Hey, how are you? What about our next meeting</div>
-                      <small class="text-muted">2 minutes ago</small>
-                    </div>
-                  </div>
-
+                    <form id="form-read-<?= $row->id ?>" method="get"
+                      action="<?= base_url('notifikasi/'. $row->id .'/read') ?>">
+                      <input type="hidden" name="konsultasi_id" value="<?= $row->konsultasi_id ?>">
+                    </form>
+                  </a>
+                  <?php endforeach ?>
+                  <?php else: ?>
+                  <p class="text-center">Tidak ada notifikasi.</p>
+                  <?php endif ?>
                 </div>
               </div>
-              <a href="javascript:void(0);" class="dropdown-item text-center navbar-notifications-menu__footer">View
-                All</a>
             </div>
           </li>
         </ul>
@@ -211,10 +118,10 @@
 
             </div>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item d-flex align-items-center py-2"
+            <!-- <a class="dropdown-item d-flex align-items-center py-2"
               href="<?= base_url('profil/'. session()->get('id')) ?>">
               <span class="material-icons mr-2">account_circle</span> Edit Account
-            </a>
+            </a> -->
             <a class="dropdown-item d-flex align-items-center py-2" href="<?= base_url('auth/logout') ?>">
               <span class="material-icons mr-2">exit_to_app</span> Logout
             </a>
@@ -227,3 +134,17 @@
   </div>
 </div>
 <!-- // END Header -->
+
+<?= $this->section('extra-scripts') ?>
+<script>
+$(document).ready(function() {
+
+  // get Edit Product
+  $('.btn-read').on('click', function() {
+    // get data from button edit
+    const id = $(this).data('id');
+    $('#form-read-' + id).submit();
+  });
+});
+</script>
+<?= $this->endSection() ?>

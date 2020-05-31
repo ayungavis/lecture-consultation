@@ -29,7 +29,7 @@ class FileController extends BaseController
     $attributes['size'] = $file->getSize();
     $attributes['type'] = $file->getClientMimeType();
     $attributes['user_id'] = $this->session->get('id');
-    $file->move(WRITEPATH . 'uploads', $attributes['name']);
+    $file->move('./uploads', $attributes['name']);
 
     return $this->file->store($attributes);
   }

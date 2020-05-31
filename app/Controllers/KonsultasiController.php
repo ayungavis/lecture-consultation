@@ -46,6 +46,7 @@ class KonsultasiController extends BaseController
     $data['title'] = 'Buat Konsultasi';
     $data['topik'] = $this->topik->asObject()->findAll();
     $data['prodi'] = $this->prodi->asObject()->findAll();
+    $data['user'] = $this->user->asObject()->find(session()->get('id'));
     $data['dosen'] = $this->user->where('role_id', 2)->asObject()->findAll();
     $data['periode'] = $this->periode->asObject()->findAll();
     return view('pages/konsultasi/create', $data);

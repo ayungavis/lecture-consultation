@@ -33,8 +33,8 @@
           <td><?= $row->mahasiswa ?></td>
           <td><?= $row->dosen ?></td>
           <td><?= $row->tahun_awal ?>/<?= $row->tahun_akhir ?></td>
-          <td><small class="text-muted"><?= date("d F Y", strtotime($row->created_at)) ?></small></td>
-          <td class="button-list">
+          <td><small class="text-muted"><?= date("d F Y", strtotime($row->updated_at)) ?></small></td>
+          <td class="button-list text-center">
             <a href="<?= base_url('konsultasi/'. $row->id) ?>" class="btn btn-light">
               <i class="material-icons">remove_red_eye</i>
             </a>

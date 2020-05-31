@@ -33,6 +33,8 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'HomeController::index');
 $routes->add('auth/login', 'AuthController::login');
 $routes->add('auth/logout', 'AuthController::logout');
+$routes->add('notifikasi/read/all', 'NotifikasiController::readAll');
+$routes->add('notifikasi/(:segment)/read', 'NotifikasiController::read/$1');
 
 // User
 $routes->add('users', 'UserController::index');
@@ -78,6 +80,15 @@ $routes->add('konsultasi/(:segment)', 'KonsultasiController::show/$1');
 $routes->add('konsultasi/(:segment)/edit', 'KonsultasiController::edit/$1');
 $routes->add('konsultasi/(:segment)/update', 'KonsultasiController::update/$1');
 $routes->add('konsultasi/(:segment)/delete', 'KonsultasiController::destroy/$1');
+
+// Detail Konsultasi
+$routes->add('detail-konsultasi', 'DetailKonsultasiController::index');
+$routes->add('detail-konsultasi/store', 'DetailKonsultasiController::store');
+$routes->add('detail-konsultasi/create', 'DetailKonsultasiController::create');
+$routes->add('detail-konsultasi/(:segment)', 'DetailKonsultasiController::show/$1');
+$routes->add('detail-konsultasi/(:segment)/edit', 'DetailKonsultasiController::edit/$1');
+$routes->add('detail-konsultasi/(:segment)/update', 'DetailKonsultasiController::update/$1');
+$routes->add('detail-konsultasi/(:segment)/delete', 'DetailKonsultasiController::destroy/$1');
 
 // Periode
 $routes->add('periode', 'PeriodeController::index');

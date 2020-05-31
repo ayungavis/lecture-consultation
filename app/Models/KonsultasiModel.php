@@ -41,10 +41,18 @@ class KonsultasiModel extends Model
     $builder->join('users as dosen', $this->table.'.dosen_id = dosen.id');
     $builder->join('periode', $this->table.'.periode_id = periode.id');
     $builder->join('file', $this->table.'.file_id = file.id');
+    
     if ($id)
       $builder->where($this->table .'.id', $id);
+      
+    if (session()->get('role_code') == 'mahasiswa')
+      $builder->where($this->table .'.user_id', session()->get('id'));
+    else if (session()->get('role_code') == 'dosen') 
+      $builder->where($this->table .'.dosen_id', session()->get('id'));
+
     if ($limit)
       $builder->limit($limit);
+      
     $builder->orderBy($this->table .'.created_at', 'desc');
     return $builder->get();
   }

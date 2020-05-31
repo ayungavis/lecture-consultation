@@ -32,7 +32,8 @@ class DetailKonsultasiModel extends Model
     'topik_bahasan' => 'required|string',
     'rencana_tindak_lanjut' => 'permit_empty|string',
     'tanggal_dibuat' => 'required',
-    'tanggal_dibalas' => 'permit_empty'
+    'tanggal_dibalas' => 'permit_empty',
+    'user_id' => 'permit_empty'
   ];
 
   public function store($data)
