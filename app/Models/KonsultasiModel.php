@@ -33,7 +33,7 @@ class KonsultasiModel extends Model
     'file_id' => 'required|numeric'
   ];
 
-  public function withRelations($id = null)
+  public function withRelations($id = null, $limit = null)
   {
     $builder = $this->db->table($this->table);
     $builder->select($this->table.'.*, mahasiswa.nim as nim_mahasiswa, mahasiswa.nama as mahasiswa, mahasiswa.prodi_id as prodi_mahasiswa, mahasiswa.tahun_masuk as tahun_masuk, mahasiswa.nomor_telepon as nomor_mahasiswa, mahasiswa.alamat as alamat_mahasiswa, dosen.nama as dosen, periode.tahun_awal as tahun_awal, periode.tahun_akhir as tahun_akhir, file.name as file_name');
@@ -43,6 +43,9 @@ class KonsultasiModel extends Model
     $builder->join('file', $this->table.'.file_id = file.id');
     if ($id)
       $builder->where($this->table .'.id', $id);
+    if ($limit)
+      $builder->limit($limit);
+    $builder->orderBy($this->table .'.created_at', 'desc');
     return $builder->get();
   }
 

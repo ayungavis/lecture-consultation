@@ -65,8 +65,8 @@
                   <div class="dropdown-item d-flex">
                     <div class="mr-3">
                       <div class="avatar avatar-xs">
-                        <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
-                          class="avatar-img rounded-circle">
+                        <!-- <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
+                          class="avatar-img rounded-circle"> -->
                       </div>
                     </div>
                     <div class="flex">
@@ -106,8 +106,8 @@
                   <div class="dropdown-item d-flex">
                     <div class="mr-3">
                       <div class="avatar avatar-xs">
-                        <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
-                          class="avatar-img rounded-circle">
+                        <!-- <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
+                          class="avatar-img rounded-circle"> -->
                       </div>
                     </div>
                     <div class="flex">
@@ -147,8 +147,8 @@
                   <div class="dropdown-item d-flex">
                     <div class="mr-3">
                       <div class="avatar avatar-xs">
-                        <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
-                          class="avatar-img rounded-circle">
+                        <!-- <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar"
+                          class="avatar-img rounded-circle"> -->
                       </div>
                     </div>
                     <div class="flex">
@@ -202,7 +202,7 @@
             <div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
 
               <span class="mr-3">
-                <img src="assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
+                <!-- <img src="assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar"> -->
               </span>
               <span class="flex d-flex flex-column">
                 <strong class="h5 m-0"><?= session()->get('nama') ?></strong>

@@ -41,13 +41,18 @@ class UserModel extends Model
     'prodi_id' => 'permit_empty|numeric'
   ];
 
-  public function withRelations($id = null)
+  public function withRelations($id = null, $limit = null, $role = null)
   {
     $builder = $this->db->table($this->table);
     $builder->select($this->table.'.*, roles.nama as role_nama, roles.code as role_code');
     $builder->join('roles', $this->table.'.role_id = roles.id');
     if ($id)
-      $builder->where('id', $id);
+      $builder->where($this->table .'.id', $id);
+    if ($role)
+      $builder->where('roles.code', $role);
+    if ($limit)
+      $builder->limit($limit);
+    $builder->orderBy($this->table .'.created_at', 'desc');
     return $builder->get();
   }
 }

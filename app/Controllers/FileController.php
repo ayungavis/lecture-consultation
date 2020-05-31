@@ -25,7 +25,7 @@ class FileController extends BaseController
 
   public function store($file)
   {
-    $attributes['name'] = random_string('alnum', 16) . '.' . $file->getClientExtension();
+    $attributes['name'] = $file->getRandomName();
     $attributes['size'] = $file->getSize();
     $attributes['type'] = $file->getClientMimeType();
     $attributes['user_id'] = $this->session->get('id');
