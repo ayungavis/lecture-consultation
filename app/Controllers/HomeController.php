@@ -14,13 +14,14 @@ class HomeController extends BaseController
 	public function index()
 	{
 		$data['title'] = 'Beranda';
-		$data['konsultasi'] = $this->konsultasi->withRelations(null, 5)->getResult();
-		$data['mahasiswa'] = $this->user->withRelations(null, 5, 'mahasiswa')->getResult();
-		$data['dosen'] = $this->user->withRelations(null, 5, 'dosen')->getResult();
-		$data['grafik'] = $this->konsultasi->getGraphicData();
 		
-		if (session()->get('role_code') == 'administrator')
+		if (session()->get('role_code') == 'administrator') {
+			$data['konsultasi'] = $this->konsultasi->withRelations(null, 5)->getResult();
+			$data['mahasiswa'] = $this->user->withRelations(null, 5, 'mahasiswa')->getResult();
+			$data['dosen'] = $this->user->withRelations(null, 5, 'dosen')->getResult();
+			$data['grafik'] = $this->konsultasi->getGraphicData();
 			return view('pages/dashboard/admin', $data);
+		}
 		else 
 			return view('pages/dashboard/user', $data);
 	}

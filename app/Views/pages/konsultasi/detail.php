@@ -107,6 +107,8 @@
         <div class="col-md-12">
           <a href="<?= base_url('konsultasi') ?>" class="btn btn-light">Kembali</a>
           <div class="button-list float-right">
+            <a href="<?= base_url('konsultasi/'. $konsultasi->id .'/report') ?>" target="_blank"
+              class="btn btn-outline-info">Cetak Laporan</a>
             <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-qrcode">QR
               Code</button>
             <a href="<?= base_url() ?>/uploads/<?= $konsultasi->file_name ?>" class="btn btn-outline-info">File KHS</a>

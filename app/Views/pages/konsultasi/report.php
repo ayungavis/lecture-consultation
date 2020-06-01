@@ -122,7 +122,7 @@ setlocale(LC_TIME, 'id_ID.utf8');
             <img src="<?= base_url('qrcode/'. $konsultasi->qr_code) ?>" width="100" alt="">
           </div>
           <div class="col-md-6 float-right">
-            <p>................., ........................................</p>
+            <p>............................., .................................................</p>
             <p>Dosen Penasihat Akademik (DPA)</p>
             <br />
             <br />

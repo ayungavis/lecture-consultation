@@ -10,11 +10,13 @@ class AuthFilter implements FilterInterface
   {
     $session = session();
     if (!$session->get('id')) {
-      if ($request->uri->getPath() != 'auth/login' 
-          and $request->uri->getSegment(1) != 'konsultasi' 
-          and $request->uri->getSegment(3) != 'report') {
-        return redirect()->to('auth/login');
-      }
+      if ($request->uri->getPath() != 'auth/login') {
+        if ($request->uri->getTotalSegments() >= 3 and $request->uri->getSegment(3) == 'report') {
+          return true;
+        } else 
+          return redirect()->to(base_url('auth/login'));
+      } 
+      
     } else {
       if ($session->get('role_code') != 'administrator' or $session->get('role_level') < 10) {
         if ($request->uri->getPath() == 'users' 
