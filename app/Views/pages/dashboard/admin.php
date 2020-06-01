@@ -43,7 +43,7 @@
               </div>
               <small><?= $row->dosen ?></small>
             </div>
-            <small class="text-muted"><?= date("d F Y", strtotime($row->created_at)) ?></small>
+            <small class="text-muted"><?= date("d F Y", strtotime($row->updated_at)) ?></small>
             <i class="material-icons icon-muted ml-3">arrow_forward</i>
           </a>
           <?php endforeach; ?>
@@ -117,7 +117,7 @@
 <script>
 (function() {
   'use strict';
-
+  
   Charts.init();
 
   var Consultation = function Consultation(id) {
@@ -129,7 +129,7 @@
         yAxes: [{
           ticks: {
             callback: function callback(a) {
-              if (!(a % 10)) return "$" + a + "k";
+              return a;
             }
           }
         }]
@@ -141,17 +141,17 @@
               o = a.yLabel,
               r = "";
             return 1 < e.datasets.length && (r += '<span class="popover-body-label mr-auto">' + t +
-              "</span>"), r += '<span class="popover-body-value">$' + o + "k</span>";
+              "</span>"), r += '<span class="popover-body-value">' + o + "</span>";
           }
         }
       }
     }, options);
     var data = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ['<?php echo $grafik['label'] ?>'],
       datasets: [{
-        label: "Sales",
-        data: [25, 20, 30, 22, 17, 10, 18, 26, 28, 26, 20, 32],
-        barPercentage: 0.5,
+        label: "Jumlah Konsultasi",
+        data: [<?php echo $grafik['jumlah'] ?>],
+        barPercentage: 1,
         barThickness: 20
       }]
     };

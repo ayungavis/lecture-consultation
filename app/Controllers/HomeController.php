@@ -17,6 +17,8 @@ class HomeController extends BaseController
 		$data['konsultasi'] = $this->konsultasi->withRelations(null, 5)->getResult();
 		$data['mahasiswa'] = $this->user->withRelations(null, 5, 'mahasiswa')->getResult();
 		$data['dosen'] = $this->user->withRelations(null, 5, 'dosen')->getResult();
+		$data['grafik'] = $this->konsultasi->getGraphicData();
+		
 		if (session()->get('role_code') == 'administrator')
 			return view('pages/dashboard/admin', $data);
 		else 

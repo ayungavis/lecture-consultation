@@ -80,6 +80,7 @@ $routes->add('konsultasi/(:segment)', 'KonsultasiController::show/$1');
 $routes->add('konsultasi/(:segment)/edit', 'KonsultasiController::edit/$1');
 $routes->add('konsultasi/(:segment)/update', 'KonsultasiController::update/$1');
 $routes->add('konsultasi/(:segment)/delete', 'KonsultasiController::destroy/$1');
+$routes->add('konsultasi/(:segment)/report', 'KonsultasiController::report/$1');
 
 // Detail Konsultasi
 $routes->add('detail-konsultasi', 'DetailKonsultasiController::index');

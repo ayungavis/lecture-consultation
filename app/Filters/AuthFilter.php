@@ -10,7 +10,9 @@ class AuthFilter implements FilterInterface
   {
     $session = session();
     if (!$session->get('id')) {
-      if ($request->uri->getPath() != 'auth/login') {
+      if ($request->uri->getPath() != 'auth/login' 
+          and $request->uri->getSegment(1) != 'konsultasi' 
+          and $request->uri->getSegment(3) != 'report') {
         return redirect()->to('auth/login');
       }
     } else {

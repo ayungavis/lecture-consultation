@@ -44,13 +44,13 @@ class DetailKonsultasiModel extends Model
     return $db->insertID();
   }
 
-  public function getByKonsultasiID($konsultasi_id)
+  public function getByKonsultasiID($konsultasi_id, $order = null)
   {
     $builder = $this->db->table($this->table);
     $builder->select($this->table.'.*, topik_konsultasi.nama as nama_topik');
     $builder->join('topik_konsultasi', $this->table.'.topik_id = topik_konsultasi.id');
     $builder->where('konsultasi_id', $konsultasi_id);
-    $builder->orderBy('tanggal_dibuat', 'desc');
+    $builder->orderBy('tanggal_dibuat', $order ?? 'desc');
     return $builder->get();
   }
 }

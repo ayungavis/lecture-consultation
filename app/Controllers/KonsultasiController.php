@@ -123,6 +123,18 @@ class KonsultasiController extends BaseController
     return redirect()->to(base_url('konsultasi'));
   }
 
+  public function report($id)
+  {
+    $data['title'] = 'Laporan Konsultasi';
+    $data['konsultasi'] = $this->konsultasi->withRelations($id)->getRow();
+    $data['detail'] = $this->detailKonsultasi->getByKonsultasiID($id, 'asc')->getResult();
+    $data['topik'] = $this->topik->asObject()->findAll();
+    $data['prodi'] = $this->prodi->asObject()->findAll();
+    $data['dosen'] = $this->user->where('role_id', 2)->asObject()->findAll();
+    $data['periode'] = $this->periode->asObject()->findAll();
+    return view('pages/konsultasi/report', $data);
+  }
+
   public function generateQR($id)
   {
     $config['cacheable']    = true; //boolean, the default is true
