@@ -1,11 +1,11 @@
 repo_name: ayungavis/lecture-consultation
-report_id: d28039e58c518e8c091a68120e6bee5f
+report_id: dad585ebc192a1a2113524adab717e43
 repo_type: Public
-timestamp: '2023-11-24T02:05:28+00:00'
+timestamp: '2023-12-14T13:21:15+00:00'
 requested_by: ayungavis
 provider: github
 branch: master
-detected_tools_count: 10
+detected_tools_count: 13
 tools:
 - name: CSS 3
   description: The latest evolution of the Cascading Style Sheets language
@@ -57,6 +57,17 @@ tools:
   detection_source: composer.json
   last_updated_by: Wahyu Adi Kurniawan
   last_updated_on: 2020-05-30 20:33:15.000000000 Z
+- name: pgvector
+  description: Open-source vector similarity search for Postgres
+  website_url: https://github.com/pgvector/pgvector/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source: license.txt
+  last_updated_by: Wahyu Adi Kurniawan
+  last_updated_on: 2020-05-30 06:48:38.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -87,7 +98,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Testing Frameworks
   image_url: https://img.stackshare.io/service/1616/1_WsEnddd5Y4EgEHsT054kUQ.jpeg
-  detection_source_url: composer.json
+  detection_source_url: https://github.com/ayungavis/lecture-consultation/blob/master/composer.json
   detection_source: composer.json
   last_updated_by: Wahyu Adi Kurniawan
   last_updated_on: 2020-05-30 06:48:38.000000000 Z
@@ -100,6 +111,28 @@ tools:
   detection_source: app/Views/index.html
   last_updated_by: Wahyu Adi Kurniawan
   last_updated_on: 2020-05-30 20:34:28.000000000 Z
+- name: LangChain
+  description: Build AI apps with LLMs through composability
+  website_url: https://github.com/hwchase17/langchain
+  open_source: true
+  hosted_saas: false
+  category: Communications
+  sub_category: Large Language Model Tools
+  image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source: license.txt
+  last_updated_by: Wahyu Adi Kurniawan
+  last_updated_on: 2020-05-30 06:48:38.000000000 Z
+- name: mikey179/vfsStream
+  description: Virtual file system to mock the real file system in unit tests
+  package_url: https://packagist.org/mikey179/vfsStream
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/package/packagist/image.png
+  detection_source: composer.json
+  last_updated_by: Wahyu Adi Kurniawan
+  last_updated_on: 2020-05-30 20:33:15.000000000 Z
 - name: phpunit/phpunit
   description: The PHP Unit Testing framework
   package_url: https://packagist.org/phpunit/phpunit
@@ -109,7 +142,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/packagist/image.png
-  detection_source_url: composer.json
+  detection_source_url: https://github.com/ayungavis/lecture-consultation/blob/master/composer.json
   detection_source: composer.json
   last_updated_by: Wahyu Adi Kurniawan
   last_updated_on: 2020-05-30 20:33:15.000000000 Z
